@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { hero, story, services, products, projects, process, ecosystem, contact, footer, brand } from '../content'
 import { useReveal } from '../hooks/useReveal'
 import { useMagnetic } from '../hooks/useMagnetic'
+import { useTilt } from '../hooks/useTilt'
 import './Sections.css'
 
 gsap.registerPlugin(ScrollTrigger)
