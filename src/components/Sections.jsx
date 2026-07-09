@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { hero, story, services, products, projects, ecosystem, contact, footer, brand } from '../content'
+import { hero, story, services, products, projects, process, ecosystem, contact, footer, brand } from '../content'
 import { useReveal } from '../hooks/useReveal'
 import { useMagnetic } from '../hooks/useMagnetic'
 import './Sections.css'
@@ -310,6 +310,59 @@ export function Projects() {
             </article>
           ))}
         </div>
+      </div>
+    </section>
+  )
+}
+
+/* ── PROCESS — horizontal pinned storytelling ─────────────────── */
+export function Process() {
+  const section = useRef(null)
+  const track = useRef(null)
+
+  useEffect(() => {
+    if (!section.current || !track.current) return
+    const mm = gsap.matchMedia()
+
+    // Pin + scroll horizontally on larger screens; stack on mobile.
+    mm.add('(min-width: 860px)', () => {
+      const getScroll = () => track.current.scrollWidth - window.innerWidth
+      const tween = gsap.to(track.current, {
+        x: () => -getScroll(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section.current,
+          start: 'top top',
+          end: () => `+=${getScroll()}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+        },
+      })
+      return () => tween.kill()
+    })
+
+    return () => mm.revert()
+  }, [])
+
+  return (
+    <section className="process" id="process" ref={section}>
+      <div className="process-track" ref={track}>
+        <div className="process-intro">
+          <span className="eyebrow">{process.eyebrow}</span>
+          <h2 className="process-heading h-display">{process.heading}</h2>
+          <p className="process-hint">
+            <span className="process-hint-line" /> Scroll to explore
+          </p>
+        </div>
+
+        {process.steps.map((s) => (
+          <article className="process-step" key={s.no} data-cursor="step">
+            <div className="process-no">{s.no}</div>
+            <h3 className="process-title">{s.title}</h3>
+            <p className="process-text">{s.text}</p>
+          </article>
+        ))}
       </div>
     </section>
   )

@@ -215,6 +215,51 @@ export const ecosystem = {
   ],
 }
 
+/* ── PROCESS — horizontal pinned storytelling ─────────────────── */
+export const process = {
+  eyebrow: 'HOW WE WORK',
+  heading: 'From idea to impact.',
+  steps: [
+    {
+      no: '01',
+      title: 'Discover',
+      text: 'We dig into your goals, users and constraints — then map the fastest path to real value.',
+    },
+    {
+      no: '02',
+      title: 'Design',
+      text: 'Interfaces and architecture designed together, so what looks good also scales well.',
+    },
+    {
+      no: '03',
+      title: 'Engineer',
+      text: 'Clean, tested, production-grade code shipped in tight iterations you can see every week.',
+    },
+    {
+      no: '04',
+      title: 'Launch',
+      text: 'We deploy, monitor and harden — a launch that’s an event, not an emergency.',
+    },
+    {
+      no: '05',
+      title: 'Elevate',
+      text: 'Post-launch we measure, refine and grow the product alongside your business.',
+    },
+  ],
+}
+
+/* Words for the kinetic marquee strip */
+export const marqueeWords = [
+  'Software',
+  'Web',
+  'Apps',
+  'ERP',
+  'Payments',
+  'IoT',
+  'Automation',
+  'Innovation',
+]
+
 export const contact = {
   eyebrow: 'LET’S BUILD',
   heading: ['Have something', 'worth building?'],

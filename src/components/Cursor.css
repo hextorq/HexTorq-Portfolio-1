@@ -1,0 +1,84 @@
+/* Custom cursor — only shown on fine-pointer devices */
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  margin: -3px 0 0 -3px;
+}
+
+.cursor-ring {
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+  border: 1px solid rgba(160, 180, 255, 0.6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.35s cubic-bezier(0.16, 1, 0.3, 1), background 0.35s ease, border-color 0.35s ease,
+    margin 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cursor-ring.is-active {
+  width: 66px;
+  height: 66px;
+  margin: -33px 0 0 -33px;
+  background: rgba(93, 132, 255, 0.12);
+  border-color: rgba(160, 180, 255, 0.9);
+}
+
+.cursor-ring.is-down {
+  transform: translate(-50%, -50%) scale(0.85);
+}
+
+.cursor-ring.has-label {
+  width: 92px;
+  height: 92px;
+  margin: -46px 0 0 -46px;
+  background: linear-gradient(135deg, rgba(61, 107, 255, 0.9), rgba(124, 58, 237, 0.9));
+  border-color: transparent;
+}
+
+.cursor-label {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  text-align: center;
+  line-height: 1.2;
+}
+.cursor-ring.has-label .cursor-label {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hide the native cursor when ours is active */
+body.has-custom-cursor,
+body.has-custom-cursor a,
+body.has-custom-cursor button {
+  cursor: none;
+}
+
+@media (pointer: coarse) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
