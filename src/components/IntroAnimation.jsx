@@ -53,7 +53,7 @@ export default function IntroAnimation({ onComplete }) {
       {step < 2 && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ 
+          exit={{
             opacity: 0,
             y: -100,
             filter: 'blur(10px)',
@@ -62,7 +62,7 @@ export default function IntroAnimation({ onComplete }) {
           className="intro-container"
         >
           <div className="intro-bg-grid" />
-          
+
           <div className="intro-blob-cyan" />
           <div className="intro-blob-purple" />
 
@@ -114,7 +114,7 @@ export default function IntroAnimation({ onComplete }) {
               </div>
             ) : (
               <div className="intro-brand-container">
-                
+
                 <motion.div
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -129,22 +129,22 @@ export default function IntroAnimation({ onComplete }) {
                   {letters.map((char, index) => (
                     <motion.span
                       key={index}
-                      initial={{ 
-                        opacity: 0, 
-                        y: 40, 
+                      initial={{
+                        opacity: 0,
+                        y: 40,
                         filter: 'blur(10px)',
-                        scale: 0.6 
+                        scale: 0.6
                       }}
-                      animate={{ 
-                        opacity: 1, 
-                        y: 0, 
+                      animate={{
+                        opacity: 1,
+                        y: 0,
                         filter: 'blur(0px)',
-                        scale: 1 
+                        scale: 1
                       }}
-                      transition={{ 
-                        duration: 1, 
-                        delay: index * 0.08, 
-                        ease: [0.16, 1, 0.3, 1] 
+                      transition={{
+                        duration: 1,
+                        delay: index * 0.08,
+                        ease: [0.16, 1, 0.3, 1]
                       }}
                       className="intro-brand-letter"
                     >
