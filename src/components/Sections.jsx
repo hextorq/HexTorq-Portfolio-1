@@ -181,6 +181,7 @@ export function Story() {
 /* ── SERVICES ─────────────────────────────────────────────────── */
 export function Services() {
   const scope = useReveal('.reveal')
+  const tiltRef = useTilt('.svc-card', { max: 7 })
   return (
     <section className="services section" id="services" ref={scope}>
       <div className="container">
@@ -188,9 +189,9 @@ export function Services() {
         <MaskHeading text={services.heading} className="section-heading" />
         <p className="section-sub reveal">{services.subheading}</p>
 
-        <div className="svc-grid">
+        <div className="svc-grid" ref={tiltRef}>
           {services.items.map((s) => (
-            <article className="svc-card reveal" key={s.id}>
+            <article className="svc-card glass reveal no-move" key={s.id} data-cursor="view">
               <div className="svc-index">{s.index}</div>
               <h3 className="svc-title">{s.title}</h3>
               <p className="svc-summary">{s.summary}</p>
@@ -200,6 +201,7 @@ export function Services() {
                 ))}
               </ul>
               <div className="svc-glow" />
+              <div className="glass-glare" />
             </article>
           ))}
         </div>
@@ -276,7 +278,7 @@ export function Products() {
                     </li>
                   ))}
                 </ul>
-                <a className="prod-link" href={p.href}>
+                <a className="prod-link" href={p.href} data-cursor="visit">
                   Visit {p.name} <span>↗</span>
                 </a>
               </div>
@@ -291,6 +293,7 @@ export function Products() {
 /* ── PROJECTS & INNOVATION ────────────────────────────────────── */
 export function Projects() {
   const scope = useReveal('.reveal')
+  const tiltRef = useTilt('.proj-card', { max: 6 })
   return (
     <section className="projects section" id="projects" ref={scope}>
       <div className="container">
@@ -298,9 +301,9 @@ export function Projects() {
         <MaskHeading text={projects.heading} className="section-heading" />
         <p className="section-sub reveal">{projects.subheading}</p>
 
-        <div className="proj-grid">
+        <div className="proj-grid" ref={tiltRef}>
           {projects.items.map((p) => (
-            <article className="proj-card reveal" key={p.id}>
+            <article className="proj-card glass reveal no-move" key={p.id} data-cursor="explore">
               <h3 className="proj-title">{p.title}</h3>
               <p className="proj-summary">{p.summary}</p>
               <ul className="proj-tags">
@@ -308,6 +311,7 @@ export function Projects() {
                   <li key={t}>{t}</li>
                 ))}
               </ul>
+              <div className="glass-glare" />
             </article>
           ))}
         </div>
@@ -381,7 +385,7 @@ export function Ecosystem() {
 
         <div className="eco-grid">
           {ecosystem.links.map((l) => (
-            <a className="eco-link reveal" href={l.href} key={l.label}>
+            <a className="eco-link reveal" href={l.href} key={l.label} data-cursor="open">
               <span className="eco-name">{l.label}</span>
               <span className="eco-note">{l.note}</span>
               <span className="eco-arrow">↗</span>

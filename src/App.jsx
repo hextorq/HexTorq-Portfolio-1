@@ -1,10 +1,22 @@
 import { useEffect, useState } from 'react'
-import Preloader from './components/Preloader'
+import IntroAnimation from './components/IntroAnimation'
 import Navbar from './components/Navbar'
+import Cursor from './components/Cursor'
+import { ScrollProgress, Marquee } from './components/Chrome'
 import Scene from './three/Scene'
-import { Hero, Story, Services, Products, Projects, Ecosystem, Contact } from './components/Sections'
+import {
+  Hero,
+  Story,
+  Services,
+  Products,
+  Process,
+  Projects,
+  Ecosystem,
+  Contact,
+} from './components/Sections'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
 import { scrollStore } from './three/scrollStore'
+import { marqueeWords } from './content'
 
 export default function App() {
   const [ready, setReady] = useState(false) // becomes true when intro finishes
@@ -35,7 +47,10 @@ export default function App() {
 
   return (
     <>
-      {!ready && <Preloader onDone={() => setReady(true)} />}
+      {!ready && <IntroAnimation onComplete={() => setReady(true)} />}
+
+      <Cursor />
+      <ScrollProgress />
 
       {/* Fixed WebGL background */}
       <Scene />
@@ -50,7 +65,9 @@ export default function App() {
           <Hero lenisRef={lenisRef} ready={ready} />
           <Story />
           <Services />
+          <Marquee words={marqueeWords} duration={30} />
           <Products />
+          <Process />
           <Projects />
           <Ecosystem />
           <Contact />

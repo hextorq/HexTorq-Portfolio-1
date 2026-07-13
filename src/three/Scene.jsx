@@ -263,6 +263,17 @@ export default function Scene() {
   return (
     <Canvas
       className="webgl-canvas"
+      // Inline style overrides R3F's default `position:relative;height:100%`
+      // container styles, which otherwise collapse the canvas height.
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        zIndex: 1,
+        pointerEvents: 'none',
+      }}
       dpr={[1, 1.5]}
       gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
       camera={{ position: [0, 0.4, 6], fov: 45 }}

@@ -198,6 +198,31 @@ button {
   }
 }
 
+/* Glassmorphism surface + moving glare (driven by --gx/--gy from useTilt) */
+.glass {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02)) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+.glass-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    360px circle at var(--gx, 50%) var(--gy, 0%),
+    rgba(160, 185, 255, 0.18),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.glass:hover .glass-glare {
+  opacity: 1;
+}
+
 /* Generic reveal — GSAP toggles .is-visible */
 .reveal {
   opacity: 0;
@@ -213,6 +238,17 @@ button {
   opacity: 1;
   transform: none;
   filter: blur(0);
+}
+
+/* For cards that also get JS-driven 3D tilt: reveal without touching
+   `transform` (opacity + blur only), so GSAP owns the transform. */
+.reveal.no-move {
+  transform: none;
+  transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.no-move.is-visible {
+  transform: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

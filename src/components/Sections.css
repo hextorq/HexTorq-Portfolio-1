@@ -194,6 +194,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.4rem;
+  perspective: 1200px;
 }
 .svc-card {
   position: relative;
@@ -202,11 +203,11 @@
   border-radius: 18px;
   background: linear-gradient(180deg, rgba(14, 17, 28, 0.7), rgba(10, 12, 20, 0.5));
   overflow: hidden;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 .svc-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(0, 229, 255, 0.4);
+  border-color: rgba(93, 132, 255, 0.4);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 .svc-glow {
   position: absolute;
@@ -502,6 +503,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.4rem;
+  perspective: 1200px;
 }
 .proj-card {
   position: relative;
@@ -510,7 +512,7 @@
   border-radius: 18px;
   background: linear-gradient(180deg, rgba(12, 14, 22, 0.7), rgba(8, 9, 15, 0.5));
   overflow: hidden;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 .proj-card::before {
   content: '';
@@ -523,8 +525,8 @@
   transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .proj-card:hover {
-  transform: translateY(-6px);
   border-color: rgba(93, 132, 255, 0.4);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
 .proj-card:hover::before {
   transform: scaleX(1);

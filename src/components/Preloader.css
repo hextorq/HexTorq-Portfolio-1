@@ -2,49 +2,34 @@
   position: fixed;
   inset: 0;
   z-index: 100;
-  background: radial-gradient(120% 120% at 50% 0%, #0a0c14 0%, #05060a 60%);
+  background: radial-gradient(120% 120% at 50% 40%, #0a0c18 0%, #000000 65%);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
 
-/* subtle animated grid + glow behind the logo */
+/* faint tech grid backdrop */
 .preloader::before {
   content: '';
   position: absolute;
   inset: -20%;
-  background-image: linear-gradient(rgba(0, 229, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 229, 255, 0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(circle at 50% 45%, #000 0%, transparent 60%);
-  animation: preGrid 12s linear infinite;
+  background-image: linear-gradient(rgba(93, 132, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(93, 132, 255, 0.06) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(circle at 50% 50%, #000 0%, transparent 62%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0%, transparent 62%);
 }
-@keyframes preGrid {
-  to {
-    transform: translateY(48px);
-  }
-}
+/* ambient center glow */
 .preloader::after {
   content: '';
   position: absolute;
-  width: 60vw;
-  height: 60vw;
+  width: 24rem;
+  height: 24rem;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.18), transparent 60%);
+  background: radial-gradient(circle, rgba(93, 132, 255, 0.16), transparent 65%);
   filter: blur(40px);
-  animation: prePulse 4s ease-in-out infinite;
-}
-@keyframes prePulse {
-  0%,
-  100% {
-    transform: scale(0.9);
-    opacity: 0.6;
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
+  pointer-events: none;
 }
 
 .pre-inner {
@@ -53,132 +38,163 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.6rem;
-  padding: 0 24px;
 }
 
-.pre-word {
+/* ── Spinning hex logo ────────────────────────────────────────── */
+.hex-logo {
   position: relative;
-  z-index: 2;
+  width: 10rem;
+  height: 10rem;
   display: flex;
-  gap: 0.04em;
-}
-
-/* wrapper holds the flare behind the word + the underline below it */
-.pre-wordwrap {
-  position: relative;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 1.1rem;
+  justify-content: center;
+  margin-bottom: 2.4rem;
 }
-
-/* radial light-burst behind the X moment */
-.pre-flare {
+.hex-outer,
+.hex-inner {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 60vw;
-  max-width: 720px;
-  aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(93, 132, 255, 0.45) 0%,
-    rgba(124, 58, 237, 0.28) 30%,
-    transparent 62%
-  );
-  filter: blur(20px);
-  pointer-events: none;
-  z-index: 1;
 }
-
-/* gradient underline that draws in under the wordmark */
-.pre-underline {
-  width: min(420px, 70vw);
-  height: 2px;
-  transform: scaleX(0);
-  transform-origin: center;
-  background: linear-gradient(90deg, transparent, var(--blue), var(--violet), transparent);
-  box-shadow: 0 0 18px rgba(93, 132, 255, 0.5);
+.hex-outer {
+  width: 9rem;
+  height: 9rem;
+  color: rgba(93, 132, 255, 0.25);
+  animation: hexSpin 12s linear infinite;
 }
-
-.pre-letter-mask {
-  overflow: hidden;
-  display: inline-block;
-  line-height: 0.9;
+.hex-inner {
+  width: 6rem;
+  height: 6rem;
+  color: var(--blue-soft);
+  filter: drop-shadow(0 0 10px rgba(93, 132, 255, 0.6));
+  animation: hexSpinRev 20s linear infinite, hexPulse 3s ease-in-out infinite;
 }
-
-.pre-letter {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(2.8rem, 12vw, 9rem);
-  letter-spacing: 0.02em;
-  /* silver/white metallic — matches the logo lettering */
-  background: linear-gradient(180deg, #ffffff 0%, #cfd6e6 55%, #8b93a7 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* The signature X — blue→violet gradient + glow, like the logo */
-.pre-letter.is-x {
-  background: linear-gradient(135deg, var(--blue) 0%, var(--violet) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  filter: drop-shadow(0 0 22px rgba(93, 132, 255, 0.55));
-}
-
-.pre-tagline {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  font-family: var(--font-body);
-  font-size: clamp(0.72rem, 1.5vw, 0.95rem);
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  font-weight: 400;
-}
-.pre-tagline span {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.9rem;
-}
-.pre-dot {
-  width: 5px;
-  height: 5px;
+.hex-core {
+  width: 1rem;
+  height: 1rem;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--blue), var(--violet));
+  box-shadow: 0 0 18px rgba(93, 132, 255, 0.9);
+  animation: corePulse 2s ease-in-out infinite;
+}
+@keyframes hexSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes hexSpinRev {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes hexPulse {
+  0%,
+  100% {
+    scale: 0.95;
+  }
+  50% {
+    scale: 1.05;
+  }
+}
+@keyframes corePulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
+/* ── Wordmark ─────────────────────────────────────────────────── */
+.pre-word {
+  display: flex;
+  gap: 0.12em;
+  margin-bottom: 2.6rem;
+}
+.pre-letter {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 8vw, 4rem);
+  letter-spacing: 0.14em;
+  color: #fff;
+  text-shadow: 0 0 20px rgba(93, 132, 255, 0.35);
+}
+.pre-letter.is-x {
+  background: linear-gradient(135deg, var(--blue), var(--violet));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 18px rgba(93, 132, 255, 0.6));
+}
+
+/* ── Progress readout ─────────────────────────────────────────── */
+.pre-readout {
+  width: min(20rem, 78vw);
+}
 .pre-bar {
-  width: min(320px, 62vw);
   height: 2px;
-  background: rgba(255, 255, 255, 0.1);
+  width: 100%;
   border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
   overflow: hidden;
 }
-
 .pre-bar-fill {
   height: 100%;
-  width: 100%;
-  transform: scaleX(0);
-  transform-origin: left center;
-  background: linear-gradient(90deg, var(--cyan), var(--purple));
-  box-shadow: 0 0 16px var(--glow-cyan);
+  background: linear-gradient(90deg, var(--violet), var(--blue));
+  box-shadow: 0 0 10px rgba(93, 132, 255, 0.6);
+  transition: width 0.1s linear;
+}
+.pre-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.9rem;
+}
+.pre-meta-label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  color: var(--text-faint);
+}
+.pre-meta-pct {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--blue-soft);
+}
+.pre-log {
+  margin-top: 0.9rem;
+  height: 1.2rem;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0.7;
+  animation: logFlicker 0.3s ease;
+}
+@keyframes logFlicker {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 0.7;
+    transform: none;
+  }
 }
 
-.pre-count {
-  position: absolute;
-  bottom: clamp(24px, 5vh, 48px);
-  right: clamp(24px, 5vw, 64px);
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 6vw, 3.4rem);
-  font-weight: 200;
-  color: var(--text-faint);
-  letter-spacing: 0.04em;
+@media (prefers-reduced-motion: reduce) {
+  .hex-outer,
+  .hex-inner,
+  .hex-core {
+    animation: none;
+  }
 }

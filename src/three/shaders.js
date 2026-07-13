@@ -115,14 +115,42 @@ void main(){
   float violetField = smoothstep(0.42, 1.00, mix(n, n2, 0.5));
   float hot         = smoothstep(0.72, 1.00, n);        // bright cores
 
+  // ── Scroll-driven palette ──────────────────────────────────────
+  // The two accent colours travel through a sequence of moods as you
+  // scroll, so each part of the page has its own distinct atmosphere.
+  //   0.0  hero      → electric blue / indigo
+  //   0.25 services  → indigo / violet
+  //   0.5  products  → violet / magenta
+  //   0.75 projects  → teal-cyan / blue
+  //   1.0  contact   → deep blue / violet
+  vec3 accentA, accentB;
+  float s = clamp(uScroll, 0.0, 1.0) * 4.0;   // 0..4 across 5 stops
+  if (s < 1.0) {
+    float f = smoothstep(0.0, 1.0, s);
+    accentA = mix(vec3(0.24,0.42,1.0), vec3(0.36,0.30,1.0), f);   // blue→indigo
+    accentB = mix(vec3(0.49,0.36,0.93), vec3(0.55,0.28,0.95), f); // indigo→violet
+  } else if (s < 2.0) {
+    float f = smoothstep(0.0, 1.0, s - 1.0);
+    accentA = mix(vec3(0.36,0.30,1.0), vec3(0.62,0.26,0.95), f);  // indigo→violet
+    accentB = mix(vec3(0.55,0.28,0.95), vec3(0.95,0.30,0.72), f); // violet→magenta
+  } else if (s < 3.0) {
+    float f = smoothstep(0.0, 1.0, s - 2.0);
+    accentA = mix(vec3(0.62,0.26,0.95), vec3(0.13,0.72,0.86), f); // violet→teal
+    accentB = mix(vec3(0.95,0.30,0.72), vec3(0.24,0.50,1.0), f);  // magenta→blue
+  } else {
+    float f = smoothstep(0.0, 1.0, s - 3.0);
+    accentA = mix(vec3(0.13,0.72,0.86), vec3(0.24,0.42,1.0), f);  // teal→blue
+    accentB = mix(vec3(0.24,0.50,1.0), vec3(0.49,0.34,0.95), f);  // blue→violet
+  }
+
   vec3 col = uBase;
-  col += uCyan   * blueField   * 0.95;
-  col += uPurple * violetField * 1.05;
+  col += accentA * blueField   * 0.95;
+  col += accentB * violetField * 1.05;
   col += vec3(0.55, 0.68, 1.0) * hot * 0.6;             // hot highlights
 
   // Big soft central glow so the scene feels lit, not flat.
   float centerGlow = pow(1.0 - abs(dir.y), 3.0);
-  col += mix(uCyan, uPurple, 0.5) * centerGlow * (0.18 + 0.25 * uScroll);
+  col += mix(accentA, accentB, 0.5) * centerGlow * (0.18 + 0.25 * uScroll);
 
   // Gentle vertical falloff for depth.
   float grad = smoothstep(-1.0, 1.0, dir.y);
