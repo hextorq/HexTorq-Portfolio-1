@@ -1,41 +1,48 @@
 # HexTorq Portfolio 1
 
-HexTorq Portfolio 1 is a cinematic company portfolio website for Hextorq. The UI is designed to feel like a premium technology control room: dark, sharp, animated, and focused on presenting Hextorq as a serious software, product, and innovation company.
+Production portfolio template for HexTorq.
 
-## Website Experience
+Live site: https://portfolio-1.hextorq.tech/
 
-The site opens with a branded intro sequence where the HEXTORQ name appears like a system coming online. After the intro, the visitor enters a full-screen dark interface with a moving geometric background, glowing accents, and a scroll-led presentation.
+## Website Overview
 
-The main visual mood is futuristic and high-contrast. Large headlines, subtle grid details, animated panels, and floating visual layers make the page feel active without turning it into a normal static landing page.
+HexTorq Portfolio 1 presents the company as a premium technology studio with a cinematic, high-contrast interface. The experience is built around a branded intro, animated hero section, dark visual depth, scroll-based reveals, and polished service and product sections.
 
-## UI Flow
+This version is best suited when the website needs to feel bold, futuristic, and highly visual while still explaining what HexTorq builds.
 
-The visitor moves through the website in this order:
+## Page Flow
 
-1. Hero section with the main Hextorq positioning and a strong first impression.
-2. About/story section explaining Hextorq as a company with multiple areas of impact.
-3. Services section showing software, websites, apps, ERP, billing, and custom solutions.
-4. Product section presenting the Panda product ecosystem.
-5. Projects and innovation section for student work, IoT, hardware, and custom builds.
-6. Process section showing how Hextorq moves from idea to launch.
-7. Contact section with a clear call to start a conversation.
+- Home: branded hero with the main HexTorq positioning.
+- About: company story and credibility context.
+- Services: software, websites, apps, ERP, billing, and custom digital solutions.
+- Products: product ecosystem presentation.
+- Projects: innovation, academic, IoT, and custom engineering work.
+- Process: how the team moves from idea to launch.
+- Contact: final conversion section for inquiries.
 
-## Visual Direction
+## UI Direction
 
-This version uses a dark futuristic portfolio style. It is built around motion, depth, and contrast:
+- Dark cinematic technology aesthetic.
+- Large hero typography and glowing accent details.
+- Smooth scroll movement and section reveal animations.
+- Product and service cards styled like premium digital panels.
+- Small template-switch control for moving to another HexTorq portfolio style while keeping the same route.
 
-- Large hero typography gives the brand a bold first-viewport signal.
-- Scroll reveals make each section enter with a controlled premium feel.
-- Geometric and 3D-inspired backgrounds support the technology identity.
-- Service and product cards are presented as polished digital panels.
-- The contact area keeps the same high-tech tone instead of switching to a plain form.
+## Static Build And SEO
 
-## Best Use
+The project uses Vite with a prerender step. Running the build generates static HTML route folders in `dist/`, so deployed pages can be served directly as HTML, CSS, and JavaScript.
 
-Use this version when the goal is to show Hextorq as a premium, modern, high-energy technology brand. It works well for a portfolio pitch, agency website, startup studio website, or product-company landing page where the visual impression matters as much as the content.
+```bash
+npm install
+npm run build
+```
 
-## Content Notes
+The generated output includes prerendered pages such as `/about/`, `/services/`, `/products/`, `/projects/`, `/process/`, and `/contact/`.
 
-Most website copy is organized in `src/content.js`. Update that file to change the company tagline, service text, product names, stats, links, social profiles, and contact email.
+## Deployment Notes
 
-The live product links are currently placeholders. Replace `#` links with the final PayPanda, PrintPanda, TicketsPanda, and company URLs before publishing.
+This site is intended for Vercel static deployment. The included `vercel.json` allows cross-origin asset loading and iframe embedding from HexTorq domains so the portfolio mix website can preload and display this template.
+
+## Content Editing
+
+Most public-facing content is in `src/content.js`. Update that file for service text, product names, stats, links, social profiles, and contact details.
