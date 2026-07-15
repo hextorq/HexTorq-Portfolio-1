@@ -1,70 +1,41 @@
-# Hextorq — Portfolio Website
+# HexTorq Portfolio 1
 
-A premium, dark-futuristic portfolio for **Hextorq**, an IT tech solutions company.
-Built around a fixed WebGL background and scroll-triggered 3D animation that tells
-the story of who Hextorq is, the services they offer, and their in-house products.
+HexTorq Portfolio 1 is a cinematic company portfolio website for Hextorq. The UI is designed to feel like a premium technology control room: dark, sharp, animated, and focused on presenting Hextorq as a serious software, product, and innovation company.
 
-## Highlights
+## Website Experience
 
-- **Intro load animation** — the company name reveals letter-by-letter with a
-  "systems online" counter, then wipes up to reveal the site.
-- **Fixed 3D scene** (React Three Fiber) — a glowing wireframe torus-knot core and
-  drifting particle field that move, morph, shift hue and accelerate as you scroll.
-- **Smooth scroll** — Lenis synced with GSAP ScrollTrigger for buttery motion and
-  scroll-linked reveals.
-- **Sections** — Hero → Story → Services → Products → Contact/Footer.
-- Fully responsive, respects `prefers-reduced-motion`.
+The site opens with a branded intro sequence where the HEXTORQ name appears like a system coming online. After the intro, the visitor enters a full-screen dark interface with a moving geometric background, glowing accents, and a scroll-led presentation.
 
-## Tech stack
+The main visual mood is futuristic and high-contrast. Large headlines, subtle grid details, animated panels, and floating visual layers make the page feel active without turning it into a normal static landing page.
 
-| Purpose        | Library                         |
-| -------------- | ------------------------------- |
-| Framework      | React + Vite                    |
-| 3D / WebGL     | three, @react-three/fiber, drei |
-| Animation      | GSAP + ScrollTrigger            |
-| Smooth scroll  | Lenis                           |
+## UI Flow
 
-## Getting started
+The visitor moves through the website in this order:
 
-```bash
-npm install
-npm run dev      # start dev server (http://localhost:5173)
-npm run build    # production build → dist/
-npm run preview  # preview the production build
-```
+1. Hero section with the main Hextorq positioning and a strong first impression.
+2. About/story section explaining Hextorq as a company with multiple areas of impact.
+3. Services section showing software, websites, apps, ERP, billing, and custom solutions.
+4. Product section presenting the Panda product ecosystem.
+5. Projects and innovation section for student work, IoT, hardware, and custom builds.
+6. Process section showing how Hextorq moves from idea to launch.
+7. Contact section with a clear call to start a conversation.
 
-## Editing content
+## Visual Direction
 
-**All copy lives in one file:** [`src/content.js`](src/content.js).
-Change the brand name, tagline, story, stats, service cards, product details,
-contact info and social links there — no other files need to be touched.
+This version uses a dark futuristic portfolio style. It is built around motion, depth, and contrast:
 
-Placeholder copy is written to feel real; swap it for Hextorq's final wording,
-live product URLs, and social links.
+- Large hero typography gives the brand a bold first-viewport signal.
+- Scroll reveals make each section enter with a controlled premium feel.
+- Geometric and 3D-inspired backgrounds support the technology identity.
+- Service and product cards are presented as polished digital panels.
+- The contact area keeps the same high-tech tone instead of switching to a plain form.
 
-## Project structure
+## Best Use
 
-```
-src/
-├─ content.js            # ← all editable text/links (single source of truth)
-├─ App.jsx               # composition + scroll→3D wiring
-├─ three/
-│  ├─ Scene.jsx          # WebGL scene (core object + particles + lights)
-│  └─ scrollStore.js     # shared scroll progress / pointer state
-├─ components/
-│  ├─ Preloader.jsx      # intro load animation
-│  ├─ Navbar.jsx         # sticky navigation
-│  └─ Sections.jsx       # Hero, Story, Services, Products, Contact
-├─ hooks/
-│  ├─ useSmoothScroll.js # Lenis + GSAP ticker sync
-│  └─ useReveal.js       # scroll-reveal for .reveal elements
-└─ styles/global.css     # theme tokens + base styles
-```
+Use this version when the goal is to show Hextorq as a premium, modern, high-energy technology brand. It works well for a portfolio pitch, agency website, startup studio website, or product-company landing page where the visual impression matters as much as the content.
 
-## Customizing the look
+## Content Notes
 
-Theme colors and fonts are CSS variables at the top of
-[`src/styles/global.css`](src/styles/global.css) (`--cyan`, `--purple`, `--bg`, …).
-The 3D object's shape and motion live in
-[`src/three/Scene.jsx`](src/three/Scene.jsx).
-# HexTorq-Portfolio-1
+Most website copy is organized in `src/content.js`. Update that file to change the company tagline, service text, product names, stats, links, social profiles, and contact email.
+
+The live product links are currently placeholders. Replace `#` links with the final PayPanda, PrintPanda, TicketsPanda, and company URLs before publishing.
