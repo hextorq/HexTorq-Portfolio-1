@@ -67,3 +67,4 @@ Theme colors and fonts are CSS variables at the top of
 [`src/styles/global.css`](src/styles/global.css) (`--cyan`, `--purple`, `--bg`, …).
 The 3D object's shape and motion live in
 [`src/three/Scene.jsx`](src/three/Scene.jsx).
+# HexTorq-Portfolio-1
