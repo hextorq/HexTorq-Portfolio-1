@@ -1,0 +1,481 @@
+/* ─────────────────────────────────────────────────────────────
+   SCROLL SPLIT CARD — 3D Flip & Product Showcase
+   ───────────────────────────────────────────────────────────── */
+
+.scroll-split-container {
+  position: relative;
+  width: 100%;
+  height: 250vh; /* Scroll timeline track */
+  background-color: #000000;
+}
+
+.scroll-split-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #000000;
+  padding: 0 var(--pad-x);
+}
+
+/* Background grid overlay just for this section */
+.scroll-split-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center;
+  mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 95%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 40%, transparent 95%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Scroll split cards layout */
+.split-cards-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  height: 540px; /* Increased wrapper height to accommodate longer cards */
+  perspective: 2000px; /* 3D depth of field */
+  z-index: 2;
+}
+
+/* Inner card wrapper for layout grid — gap is 0 so panels touch initially, forming a single card cover */
+.split-cards-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0; 
+  width: 100%;
+  height: 100%;
+}
+
+/* FRONT FACE (Unified Cover Card Slices) */
+.card-face-front {
+  background-color: #05070a;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* Sliced background wrapper inside front faces */
+.cover-slice-wrapper {
+  position: absolute;
+  top: 0;
+  width: 300%; /* Spans across all 3 cards */
+  height: 100%;
+  background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop'); /* Premium abstract fluid neon wave matching Vercel/Stripe theme */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  padding: 2rem;
+}
+
+/* Dark overlay scrim to make cover text legible */
+.cover-slice-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+/* Slices positioning offsets */
+.slice-left {
+  left: 0%;
+}
+
+.slice-center {
+  left: -100%;
+}
+
+.slice-right {
+  left: -200%;
+}
+
+/* Cover Text styling within the slices */
+.cover-slice-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover-slice-content .eyebrow {
+  margin-bottom: 0.8rem;
+  color: var(--blue-soft);
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.2em;
+  text-shadow: 0 0 15px rgba(61, 107, 255, 0.4);
+}
+
+.cover-slice-content h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.8rem;
+  white-space: nowrap;
+}
+
+.cover-slice-content p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 320px;
+  line-height: 1.45;
+}
+
+/* Sticky Header at the top of the cards container */
+.scroll-split-header {
+  text-align: center;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.scroll-split-header .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: var(--blue-soft);
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+  display: inline-block;
+}
+
+.scroll-split-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+}
+
+/* The individual 3D Card */
+.card-3d-container {
+  width: clamp(220px, 18vw, 260px); /* Taller and narrower cards (longer vertically) matching the reference size */
+  height: clamp(420px, 32vw, 490px); /* Vertically stretched to fit elegant layout */
+  position: relative;
+  cursor: pointer;
+  transform-style: preserve-3d; /* CRITICAL: Enables 3D perspective context for nested children */
+}
+
+/* Overlap cards slightly to cover browser subpixel layout rendering gaps */
+.card-3d-container:not(:first-child) {
+  margin-left: -1.5px;
+}
+
+.card-3d-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Standard face styles */
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* FRONT FACE (Unified Cover Card Slices) */
+.card-face-front {
+  background: linear-gradient(135deg, #0f121d 0%, #05070a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateZ(1px); /* Crucial for Webkit 3D layout separation */
+  border: none !important; /* Remove borders between/around slices for a seamless initial cover image */
+}
+
+/* Dynamic border radii for the front cover slices to appear as a single unified card cover */
+.card-face-front.slice-left {
+  border-radius: 20px 0 0 20px;
+}
+
+.card-face-front.slice-center {
+  border-radius: 0;
+}
+
+.card-face-front.slice-right {
+  border-radius: 0 20px 20px 0;
+}
+
+/* Subtle overlay pattern across front faces */
+.card-face-front::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.15;
+  background-image: 
+    linear-gradient(45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), 
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%), 
+    linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.05) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+.card-face-front-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(61, 107, 255, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* BACK FACE (Detailed Product Display) */
+.card-face-back {
+  transform: rotateY(180deg) translateZ(1px); /* Separation in Z axis prevents Z-fighting & mirroring */
+  padding: 2.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Align content at the bottom, matching reference */
+  z-index: 1;
+  border-radius: 20px; /* Fully rounded product cards on the back */
+}
+
+/* Grain Noise Overlay */
+.card-noise-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image: url('https://framerusercontent.com/images/6mcf62RlDfRfU61Yg5vb2pefpi4.png?width=256&height=256');
+  background-repeat: repeat;
+  mix-blend-mode: overlay;
+  z-index: 2;
+  border-radius: inherit;
+}
+
+/* Product Themes */
+/* 1. PayPanda (Light Grey) */
+.card-face-back.theme-paypanda {
+  background: linear-gradient(180deg, #f5f5f5 0%, #e2e2e2 100%);
+  color: #111111;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+.card-face-back.theme-paypanda .product-description {
+  color: rgba(17, 17, 17, 0.75);
+}
+.card-face-back.theme-paypanda:hover {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.22);
+}
+
+/* 2. PrintPanda (Blue) */
+.card-face-back.theme-printpanda {
+  background: linear-gradient(180deg, #2563eb 0%, #1a5bcf 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.card-face-back.theme-printpanda .product-description {
+  color: rgba(255, 255, 255, 0.85);
+}
+.card-face-back.theme-printpanda:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 15px 45px rgba(26, 91, 207, 0.45);
+}
+
+/* 3. TicketsPanda (Dark Grey) */
+.card-face-back.theme-ticketspanda {
+  background: linear-gradient(180deg, #2c2c2c 0%, #1c1c1c 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.card-face-back.theme-ticketspanda .product-description {
+  color: rgba(255, 255, 255, 0.78);
+}
+.card-face-back.theme-ticketspanda:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 15px 45px rgba(255, 255, 255, 0.12);
+}
+
+/* Icon & Content styling */
+.product-icon {
+  font-size: 1.8rem;
+  margin-bottom: auto; /* Push icon to the top left of the card */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  color: currentColor;
+  z-index: 3;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.product-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.card-3d-container:hover .product-icon {
+  transform: scale(1.2) rotate(8deg);
+}
+
+.product-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.2vw, 1.65rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.55rem;
+  color: currentColor;
+  z-index: 3;
+}
+
+.product-description {
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: currentColor;
+  z-index: 3;
+}
+
+
+/* Glare highlight sweeping effect */
+.card-glare-effect {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  border-radius: inherit;
+  background: radial-gradient(
+    180px circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(255, 255, 255, 0.12),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.card-3d-container:hover .card-glare-effect {
+  opacity: 1;
+}
+
+/* Dynamic floating particles */
+.card-particles-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* Scroll split indicator/hint below grid */
+.scroll-split-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  z-index: 5;
+  transition: opacity 0.5s ease;
+}
+
+/* Mobile responsiveness fallbacks */
+@media (max-width: 900px) {
+  .scroll-split-container {
+    height: auto !important; /* Stack vertically on mobile */
+  }
+
+  .scroll-split-sticky {
+    position: relative !important;
+    height: auto !important;
+    padding: 6rem var(--pad-x) 4rem;
+  }
+
+  .split-cards-wrapper {
+    height: auto !important;
+    perspective: none !important;
+  }
+
+  .split-cards-grid {
+    flex-direction: column !important;
+    gap: 2.5rem !important;
+    padding: 0 1rem;
+  }
+
+  .card-3d-container {
+    width: 100% !important;
+    max-width: 380px !important;
+    height: 380px !important;
+    transform: none !important;
+  }
+
+  .card-3d-inner {
+    transform: none !important;
+  }
+
+  .card-face-front {
+    display: none !important; /* Always show details on mobile */
+  }
+
+  .card-face-back {
+    transform: none !important;
+    position: relative !important;
+  }
+
+  .explore-btn {
+    transform: none !important; /* Always visible on mobile */
+  }
+
+  .split-cards-cover-overlay {
+    position: relative !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    opacity: 1 !important;
+    margin-bottom: 3rem;
+    padding: 0;
+  }
+
+  .scroll-split-hint {
+    display: none !important;
+  }
+}

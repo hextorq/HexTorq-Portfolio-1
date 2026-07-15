@@ -1,0 +1,59 @@
+.geometric-bg-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #030303;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.geometric-bg-gradient-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, transparent 50%, rgba(244, 63, 94, 0.05) 100%);
+  filter: blur(64px);
+  pointer-events: none;
+}
+
+.geometric-bg-shapes-wrapper {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.elegant-shape-wrapper {
+  position: absolute;
+}
+
+.elegant-shape-inner {
+  position: relative;
+}
+
+.elegant-shape-blur-circle {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.elegant-shape-blur-circle::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.2), transparent 70%);
+  pointer-events: none;
+}
+
+.geometric-bg-fade-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #000000 0%, transparent 50%, rgba(0, 0, 0, 0.8) 100%);
+  pointer-events: none;
+}
